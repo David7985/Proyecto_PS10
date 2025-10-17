@@ -27,8 +27,8 @@ def get_default_menus() -> List[IMenu]:
             [
                 Ingrediente("Vienesa", "unid", 1),
                 Ingrediente("Pan de completo", "unid", 1),
-                Ingrediente("Palta", "unid", 1),
-                Ingrediente("Tomate", "unid", 1),
+                Ingrediente("Palta", "unid", 0.5),
+                Ingrediente("Tomate", "unid", 0.2),
             ],
             precio=1800,
             icono_path="IMG/icono_completo_64x64.png",
