@@ -76,7 +76,6 @@ class AplicacionConPestanas(ctk.CTk):
         label = ctk.CTkLabel(self.tab3, text="Carga de archivo CSV")
         label.pack(pady=20)
         boton_cargar_csv = ctk.CTkButton(self.tab3, text="Cargar CSV", fg_color="#1976D2", text_color="white",command=self.cargar_csv)
-
         boton_cargar_csv.pack(pady=10)
 
         self.frame_tabla_csv = ctk.CTkFrame(self.tab3)
@@ -101,7 +100,7 @@ class AplicacionConPestanas(ctk.CTk):
             unidad = str(row['unidad'])
             ingrediente = Ingrediente(nombre=nombre, unidad=unidad, cantidad=cantidad)
             self.stock.agregar_ingrediente(ingrediente)
-        CTkMessagebox(title="Stock Actualizado", message="Ingredientes agregados al stock correctamente.", icon="info")
+        CTkMessagebox(title="Éxito", message="CSV agregado al stock correctamente.", icon="check")
         self.actualizar_treeview()
 
     def cargar_csv(self):
@@ -164,6 +163,7 @@ class AplicacionConPestanas(ctk.CTk):
             abs_pdf = os.path.abspath(pdf_path)
             self.pdf_viewer_carta = CTkPDFViewer(self.pdf_frame_carta, file=abs_pdf)
             self.pdf_viewer_carta.pack(expand=True, fill="both")
+            CTkMessagebox(title="Éxito", message="Carta generada correctamente.", icon="check")
         except Exception as e:
             CTkMessagebox(title="Error", message=f"No se pudo generar/mostrar la carta.\n{e}", icon="warning")
 
@@ -196,18 +196,17 @@ class AplicacionConPestanas(ctk.CTk):
             abs_pdf = os.path.abspath(pdf_path)
             self.pdf_viewer_boleta = CTkPDFViewer(self.pdf_frame_boleta, file=abs_pdf)
             self.pdf_viewer_boleta.pack(expand=True, fill="both")
+            CTkMessagebox(title="Éxito", message="Boleta generada correctamente.", icon="check")
         except Exception as e:
             CTkMessagebox(title="Error", message=f"No se pudo mostrar la boleta.\n{e}", icon="warning")
 
     def configurar_pestana1(self):
-        # Dividir la Pestaña 1 en dos frames
         frame_formulario = ctk.CTkFrame(self.tab1)
         frame_formulario.pack(side="left", fill="both", expand=True, padx=10, pady=10)
 
         frame_treeview = ctk.CTkFrame(self.tab1)
         frame_treeview.pack(side="right", fill="both", expand=True, padx=10, pady=10)
 
-        # Formulario en el primer frame
         label_nombre = ctk.CTkLabel(frame_formulario, text="Nombre del Ingrediente:")
         label_nombre.pack(pady=5)
         self.entry_nombre = ctk.CTkEntry(frame_formulario)
@@ -263,6 +262,7 @@ class AplicacionConPestanas(ctk.CTk):
             self.actualizar_treeview_pedido()
             total = self.pedido.calcular_total()
             self.label_total.configure(text=f"Total: ${total:.2f}")
+            CTkMessagebox(title="Éxito", message=f"Menú '{menu.nombre}' agregado al pedido correctamente.", icon="check")
         else:
             CTkMessagebox(title="Stock Insuficiente", message=f"No hay suficientes ingredientes para preparar el menú '{menu.nombre}'.", icon="warning")
     
@@ -271,12 +271,12 @@ class AplicacionConPestanas(ctk.CTk):
         icono_menu = ctk.CTkImage(imagen, size=(64, 64))
         return icono_menu
 
-    
     def generar_menus(self):
         for menu in self.menus:
             if menu.nombre not in self.menus_creados:
                 self.crear_tarjeta(menu)
                 self.menus_creados.add(menu.nombre)
+        CTkMessagebox(title="Éxito", message="Menús generados correctamente.", icon="check")
 
     def eliminar_menu(self):
         selected_item = self.treeview_menu.selection()
@@ -311,6 +311,7 @@ class AplicacionConPestanas(ctk.CTk):
             abs_pdf = os.path.abspath(pdf_path)
             self.pdf_viewer_boleta = CTkPDFViewer(self.pdf_frame_boleta, file=abs_pdf)
             self.pdf_viewer_boleta.pack(expand=True, fill="both")
+            CTkMessagebox(title="Éxito", message="Boleta generada correctamente.", icon="check")
         except Exception as e:
             CTkMessagebox(title="Error", message=f"No se pudo generar la boleta.\n{e}", icon="warning")
 
@@ -374,7 +375,7 @@ class AplicacionConPestanas(ctk.CTk):
 
         texto_label = ctk.CTkLabel(
             tarjeta,
-            text=f"{menu.nombre}", #\n${menu.precio:.2f}",
+            text=f"{menu.nombre}", 
             text_color="black",
             font=("Helvetica", 12, "bold"),
             bg_color="transparent",
