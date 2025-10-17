@@ -23,4 +23,3 @@ class CrearMenu(IMenu):
             if not ok:
                 return False
         return True
-
